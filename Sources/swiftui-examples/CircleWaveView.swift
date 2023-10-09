@@ -136,7 +136,7 @@ public struct CircleWaveView: View {
         self.options = options
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             ForEach(circleWaves) { circleWave in
                 Circle()
@@ -228,7 +228,6 @@ public struct CircleWaveView: View {
 struct WaveView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
             CircleWaveView()
         }
     }
