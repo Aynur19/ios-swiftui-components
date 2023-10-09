@@ -8,7 +8,7 @@
 import SwiftUI
 
 public class CircleWaveViewModel: Identifiable, ObservableObject {
-    let id = UUID().uuidString
+    public let id = UUID().uuidString
     let color: Color
     let position: CGPoint
     let duration: CGFloat
