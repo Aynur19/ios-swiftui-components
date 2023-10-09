@@ -19,7 +19,7 @@ public class CircleWaveViewModel: Identifiable, ObservableObject {
     let maxRadius: CGFloat
     let radiusDiff: CGFloat
     
-    init(
+    public init(
         color: Color = .blue,
         position: CGPoint = .init(x: UIScreen.main.bounds.midX,
                                   y: UIScreen.main.bounds.midY),
@@ -70,7 +70,7 @@ public struct CircleWaveViewConfig {
     let blureRadius: CGFloat
     let isBlured: Bool
     
-    init(
+    public init(
         colors: [Color] = [.red, .green, .blue],
         
         position: CGPoint = .init(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY),
@@ -132,7 +132,7 @@ public struct CircleWaveView: View {
 
     private let options: CircleWaveViewConfig
     
-    init(_ options: CircleWaveViewConfig = .init()) {
+    public init(_ options: CircleWaveViewConfig = .init()) {
         self.options = options
     }
     
