@@ -7,26 +7,23 @@
 
 import SwiftUI
 
-public struct OverlappedCirclesView: View {
-    private let color: Color
-    private let count: Int
+public struct OverlappedCirclesViewConfig {
+    let color: Color
+    let count: Int
     
-    private let minRadius: CGFloat
-    private let maxRadius: CGFloat
-    private let radiusDiff: CGFloat
+    let minRadius: CGFloat
+    let maxRadius: CGFloat
+    let radiusDiff: CGFloat
     
-    private let minOpacity: Double
-    private let maxOpacity: Double
-    private let opacityDiff: Double
+    let minOpacity: Double
+    let maxOpacity: Double
+    let opacityDiff: Double
     
-    @State private var position: CGPoint
-    private let minPosition: CGPoint
-    private let maxPosition: CGPoint
-    private let isRandomWalking: Bool
+    let minPosition: CGPoint
+    let maxPosition: CGPoint
+    let isRandomWalking: Bool
     
-    private let speed: CGFloat
-    
-    @State private var duration: CGFloat = 0
+    let speed: CGFloat
     
     public init(
         color: Color = .blue,
@@ -58,12 +55,22 @@ public struct OverlappedCirclesView: View {
         self.maxOpacity = maxOpacity
         self.opacityDiff = opacityDiff ?? (maxOpacity - minOpacity) / Double(count)
         
-        self.position = position
         self.minPosition = minPosition
         self.maxPosition = maxPosition
         self.isRandomWalking = isRandomWalking
         
-        self.speed = 50
+        self.speed = speed
+    }
+}
+
+public struct OverlappedCirclesView: View {
+    private let options: OverlappedCirclesViewConfig
+    @State private var position: CGPoint = .init(x: UIScreen.main.bounds.midX,
+                                                 y: UIScreen.main.bounds.midY)
+    @State private var duration: CGFloat = 0
+    
+    public init(options: OverlappedCirclesViewConfig = .init()) {
+        self.options = options
     }
     
     public var body: some View {
@@ -77,9 +84,9 @@ public struct OverlappedCirclesView: View {
     }
     
     private var circles: some View {
-        ForEach(0..<count) { i in
+        ForEach(0..<options.count) { i in
             Circle()
-                .fill(RadialGradient(colors: [color.opacity(getOpacity(i))],
+                .fill(RadialGradient(colors: [options.color.opacity(getOpacity(i))],
                                      center: .center,
                                      startRadius: 0,
                                      endRadius: getRadius(i)))
@@ -91,12 +98,12 @@ public struct OverlappedCirclesView: View {
         Task {
             let randomPosition = getPosition()
             let distance = distanceBetween(position, and: randomPosition)
-            let duration = distance / speed
-
+            let duration = distance / options.speed
+            
             withAnimation(.easeInOut(duration: TimeInterval(duration))) {
                 position = randomPosition
             }
-
+            
             try? await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000))
             
             moveCircle()
@@ -104,17 +111,17 @@ public struct OverlappedCirclesView: View {
     }
     
     private func getOpacity(_ idx: Int) -> Double {
-        maxOpacity - Double(idx) * opacityDiff
+        options.maxOpacity - Double(idx) * options.opacityDiff
     }
     
     private func getRadius(_ idx: Int) -> CGFloat {
-        minRadius + radiusDiff * CGFloat(idx + 1)
+        options.minRadius + options.radiusDiff * CGFloat(idx + 1)
     }
     
     private func getPosition() -> CGPoint {
-        isRandomWalking
-        ? .init(x: CGFloat.random(in: minPosition.x...maxPosition.x),
-                y: CGFloat.random(in: minPosition.y...maxPosition.y))
+        options.isRandomWalking
+        ? .init(x: CGFloat.random(in: options.minPosition.x...options.maxPosition.x),
+                y: CGFloat.random(in: options.minPosition.y...options.maxPosition.y))
         : position
     }
     
