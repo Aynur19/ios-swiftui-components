@@ -12,7 +12,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "ios-swiftui-examples",
-            targets: ["ios-swiftui-examples"]),
+            targets: ["ios-swiftui-examples"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -23,9 +23,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ios-swiftui-examples",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "ios-swiftui-examplesTests",
-            dependencies: ["ios-swiftui-examples"]),
+            dependencies: ["ios-swiftui-examples"])
     ]
 )

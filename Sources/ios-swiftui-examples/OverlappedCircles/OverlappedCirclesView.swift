@@ -84,13 +84,13 @@ public struct OverlappedCirclesView: View {
     }
     
     private var circles: some View {
-        ForEach(0..<options.count) { i in
+        ForEach(0..<options.count) { idx in
             Circle()
-                .fill(RadialGradient(colors: [options.color.opacity(getOpacity(i))],
+                .fill(RadialGradient(colors: [options.color.opacity(getOpacity(idx))],
                                      center: .center,
                                      startRadius: 0,
-                                     endRadius: getRadius(i)))
-                .frame(width: getRadius(i))
+                                     endRadius: getRadius(idx)))
+                .frame(width: getRadius(idx))
         }
     }
     
