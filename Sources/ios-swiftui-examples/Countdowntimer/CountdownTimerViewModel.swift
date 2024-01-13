@@ -15,23 +15,23 @@ public enum CountdownTimerState: String {
 }
 
 public final class CountdownTimerViewModel: ObservableObject {
-    @Published private(set) var progress: CGFloat = 1
-    @Published private(set) var counter: Int
-    @Published private(set) var time: Int
-    @Published private(set) var state: CountdownTimerState = .idle
+    @Published public private(set) var progress: CGFloat = 1
+    @Published public private(set) var counter: Int
+    @Published public private(set) var time: Int
+    @Published public private(set) var state: CountdownTimerState = .idle
     
-    @Published private(set) var isNotified = false
+    @Published public private(set) var isNotified = false
     private var timeLeftToNotify: Int
     
     private var timer: Timer?
 
-    init(_ milliseconds: Int, timeLeftToNotify: Int = .max) {
+    public init(_ milliseconds: Int, timeLeftToNotify: Int = .max) {
         self.time = milliseconds
         self.timeLeftToNotify = timeLeftToNotify
         self.counter = milliseconds
     }
     
-    func reset(_ milliseconds: Int? = .none, timeLeftToNotify: Int? = .none) {
+    public func reset(_ milliseconds: Int? = .none, timeLeftToNotify: Int? = .none) {
         timer?.invalidate()
         if let timeOfMs = milliseconds {
             time = timeOfMs
@@ -48,7 +48,7 @@ public final class CountdownTimerViewModel: ObservableObject {
         state = .idle
     }
     
-    func start() {
+    public func start() {
         if let isValid = timer?.isValid, isValid { return }
         
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
@@ -64,7 +64,7 @@ public final class CountdownTimerViewModel: ObservableObject {
         state = .processing
     }
     
-    func stop() {
+    public func stop() {
         timer?.invalidate()
         state = .stoped
     }

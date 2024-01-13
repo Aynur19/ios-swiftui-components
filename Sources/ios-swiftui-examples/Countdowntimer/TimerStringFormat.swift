@@ -19,7 +19,7 @@ public enum TimerStringFormat {
     case hourMinSec
     case hourMinSecMs
     
-    func msStr(_ milliseconds: Int) -> String {
+    public func msStr(_ milliseconds: Int) -> String {
         let seconds = milliseconds / 1000
         let hours = seconds / 3600
         let minutes = (seconds % 3600) / 60
