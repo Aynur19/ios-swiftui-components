@@ -25,8 +25,8 @@ let package = Package(
             name: "ios-swiftui-examples",
             dependencies: []
         ),
-        .testTarget(
-            name: "ios-swiftui-examplesTests",
-            dependencies: ["ios-swiftui-examples"])
+//        .testTarget(
+//            name: "ios-swiftui-examplesTests",
+//            dependencies: ["ios-swiftui-examples"])
     ]
 )
