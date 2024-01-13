@@ -24,7 +24,7 @@ where BackShapeStyleType: ShapeStyle,
     
     @ViewBuilder private var contentView: ContentViewType
     
-    init(
+    public init(
         lineWidth: CGFloat = 20,
         circleRotation: Angle = .degrees(-90),
         animationDuration: Double = 0.2,
